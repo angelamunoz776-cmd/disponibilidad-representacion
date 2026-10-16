@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Disponibilidad de la Representación</title>
+<style>
+:root{--bg:#FAF9FC;--tx:#393647;--card:#fff;--mut:#7d7a8c;--bd:#ece9f4;--lil:#DCD6F7;--ros:#F8DDEB;--azu:#D9EAFD;--men:#DDF3E4;--ama:#FFF0C2;--sh:0 2px 10px rgba(80,70,120,.07);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b27;--tx:#ece9f7;--card:#282636;--mut:#a9a5bd;--bd:#38354a;--lil:#4a4470;--ros:#5e4455;--azu:#3b4d66;--men:#3d5848;--ama:#5f5632}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1150px;margin:0 auto;padding:20px 16px 48px}
+h1{margin:0;font-size:1.7rem}h2{margin:0 0 12px;font-size:1.1rem}h3{margin:12px 0 6px;font-size:.95rem}
+.sub{color:var(--mut);margin:2px 0 14px}
+.warn{background:var(--ama);color:#4a4020;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.88rem}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .warn{color:#fff3c9}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--sh);padding:16px;border:1px solid var(--bd)}
+.stat{display:flex;gap:12px;align-items:center}.stat .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;flex:none}
+.stat b{font-size:1.35rem;display:block;line-height:1.2}.stat small{color:var(--mut)}
+section{margin-bottom:18px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+label{display:flex;flex-direction:column;font-size:.8rem;color:var(--mut);gap:3px}
+select,input[type=text],button{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:8px 10px}
+button{cursor:pointer;background:var(--lil);border-color:transparent;font-weight:600}button:hover{filter:brightness(.96)}
+button.sec{background:var(--azu)}button.dng{background:var(--ros)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;margin:3px 4px 3px 0;font-size:.85rem;border:0;color:#393647;font-weight:500}
+.chip small{opacity:.7}
+.g-ok{background:var(--men)}.g-no{background:var(--ros)}.g-co{background:var(--ama)}.g-un{background:var(--azu)}
+.tag{display:inline-block;background:var(--ama);border-radius:999px;padding:2px 10px;font-size:.75rem;font-weight:700;color:#4a4020}
+.rec{border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px;background:var(--card)}
+.rec.best{border-color:#bfb4ee;background:linear-gradient(0deg,var(--card),var(--card)) padding-box}
+.rec .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.bar{height:8px;border-radius:9px;background:var(--bd);overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:#a99bea}
+.muted{color:var(--mut);font-size:.85rem}.empty{padding:14px;text-align:center;color:var(--mut);background:var(--bg);border-radius:12px}
+.cal{overflow:auto;max-height:560px;border:1px solid var(--bd);border-radius:14px;background:var(--card)}
+table.c{border-collapse:separate;border-spacing:2px;width:100%;min-width:560px}
+table.c th{position:sticky;top:0;background:var(--card);z-index:2;font-size:.8rem;padding:6px}
+table.c td.h{position:sticky;left:0;background:var(--card);font-size:.7rem;color:var(--mut);white-space:nowrap;padding:0 6px;z-index:1}
+table.c td.k{height:24px;text-align:center;font-size:.72rem;border-radius:6px;cursor:pointer;color:#393647;position:relative}
+td.k.sel{outline:2px solid #6c5ce0}td.k .d{position:absolute;right:3px;top:3px;width:5px;height:5px;border-radius:50%;background:#6c5ce0;opacity:.55}
+.l0{background:#f1eff6}.l1{background:#FFF0C2}.l2{background:#F8DDEB}.l3{background:#D9EAFD}.l4{background:#DCD6F7}.l5{background:#DDF3E4;font-weight:700}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .l0{background:#312f40;color:#ece9f7}}
+.leg{display:flex;flex-wrap:wrap;gap:10px;font-size:.78rem;margin:8px 0;color:var(--mut)}.leg span i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:4px}
+.week{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.day{background:var(--bg);border-radius:12px;padding:10px}.day b{display:block;margin-bottom:4px}
+.pg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0}.pg label{flex-direction:row;align-items:center;color:var(--tx);font-size:.85rem}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%}
+table.cmp{border-collapse:collapse;width:100%;font-size:.85rem}table.cmp td,table.cmp th{border:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+</style></head><body><div class="wrap">
+<h1>Disponibilidad de la Representación</h1>
+<p class="sub">Encuentra el mejor momento para coincidir</p>
+<div class="warn">⚠️ Faltan los horarios de <b>Diego</b>.</div>
+<div class="cards" id="cards"></div>
+
+<section class="card"><h2>🔎 Buscador de disponibilidad</h2>
+<div class="row"><label>Día<select id="fDay"></select></label><label>Hora<select id="fTime"></select></label>
+<label>Duración<select id="fDur"></select></label><button id="fGo">Consultar</button></div>
+<div id="fOut" style="margin-top:12px"></div></section>
+
+<section class="card"><h2>⭐ Recomendador de horarios</h2>
+<div class="row"><label>Día<select id="rDay"></select></label><label>Duración<select id="rDur"></select></label>
+<label>Mínimo de personas<select id="rMin"></select></label></div>
+<h3>Integrantes obligatorios</h3><div class="pg" id="rReq"></div>
+<div id="rOut"></div><div id="cmp"></div></section>
+
+<section class="card"><h2>📅 Calendario semanal</h2>
+<div class="leg"><span><i class="l0"></i>0 personas</span><span><i class="l1"></i>Poca</span><span><i class="l2"></i></span><span><i class="l3"></i>Media</span><span><i class="l4"></i></span><span><i class="l5"></i>Alta</span><span><i style="background:#6c5ce0;opacity:.55;border-radius:50%;width:8px;height:8px"></i>Datos incompletos (hay desconocidos)</span></div>
+<div class="muted" style="margin-bottom:6px">El número es la cantidad con disponibilidad confirmada. Toca una celda para ver los nombres.</div>
+<div class="cal"><table class="c" id="cal"></table></div><div id="cOut" style="margin-top:10px"></div></section>
+
+<section class="card"><h2>👤 Vista individual</h2>
+<div class="row"><label>Integrante<select id="iP"></select></label></div>
+<div id="iOut" style="margin-top:12px"></div></section>
+
+<section class="card"><h2>✏️ Gestión de horarios</h2>
+<div class="warn" id="stor"></div>
+<div class="row"><label>Persona<select id="eP"></select></label><label>Día<select id="eD"></select></label>
+<label>Desde<select id="eA"></select></label><label>Hasta<select id="eB"></select></label>
+<label>Estado<select id="eS"><option value="f">Libre confirmado</option><option value="b">No disponible</option><option value="u">Desconocido</option><option value="c">Condicional</option></select></label>
+<button id="eGo">Aplicar al intervalo</button></div>
+<div class="row" style="margin-top:10px"><button class="sec" id="eAll">Marcar todo el día de la persona con este estado</button></div>
+<div class="row" style="margin-top:14px"><label>Nuevo integrante<input type="text" id="nN" placeholder="Nombre completo"></label><button id="nGo">Añadir (todo desconocido)</button></div>
+<div class="row" style="margin-top:14px"><button class="sec" id="xJ">Descargar JSON</button><button class="sec" id="xC">Descargar CSV</button>
+<label style="color:var(--tx)">Cargar JSON<input type="file" id="iJ" accept=".json"></label><button class="dng" id="rst">Restablecer datos iniciales</button></div>
+<div id="eMsg" class="muted" style="margin-top:8px"></div></section>
+</div>
+<script>
+const DAYS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],N=34,COLORS=["#c9bff2","#f6c6dd","#bcd9f7","#bfe8cc","#ffe39a","#f5c3b0","#b7e6e3","#e3c2f0","#d4e6a5","#f0d0a8","#c3c9ef","#f2b8c6"];
+const ST={f:"Libre confirmado",b:"Ocupado / no disponible",u:"Desconocido",c:"Condicional"};
+const fmt=t=>{const h=Math.floor(t),m=t%1?"30":"00";return(h%12||12)+":"+m+(h>=12&&h<24?" p. m.":" a. m.")};
+const sT=i=>6+i/2,tI=t=>Math.round((t-6)*2);
+function mk(spec){return spec.map(d=>{const a=Array(N).fill(d[0]);for(const r of d.slice(1)){for(let i=Math.max(0,tI(r[0]));i<Math.min(N,tI(r[1]));i++)a[i]=r[2]||"f"}return a.join("")})}
+const U=["u"],B=["b"],F=["f"];
+const INIT=()=>[
+{n:"Zorell",s:mk([["b",[16.5,18]],["b",[16.5,20]],B,B,B,U,U])},
+{n:"Juan Pablo",s:mk([F,["b",[19,21]],["b",[19,21],[23,24]],["b",[19,21]],["b",[11,13],[16,23]],U,U])},
+{n:"Andrés",s:mk([["b",[7,12],[14,16]],["b",[18,23]],["b",[12,16],[18,20]],["b",[18,23]],["b",[7,13],[19,23]],F,F])},
+{n:"Ángela",s:mk([["b",[11,23]],["b",[19,23]],["b",[17,23]],B,["b",[6,11],[16,23]],F,B])},
+{n:"Juan",s:mk([["b",[9,18]],["b",[14,16]],["b",[14,16]],["b",[14,20]],["b",[11,13]],B,["b",[16,23]]])},
+{n:"Toledo",s:mk([["c"],["u",[6,12,"b"]],["c"],["u",[6,12,"b"]],["c"],["c"],["c"]])},
+{n:"Mora",s:mk([["b",[18,20]],["b",[18,20]],["b",[18,20]],["b",[18,20]],["b",[17,20]],F,F])},
+{n:"Alison",s:mk([["b",[17,20]],F,B,["b",[18.5,21]],F,F,F])},
+{n:"Nicol",s:mk([["b",[16,18]],["b",[9,11],[18,20]],B,["b",[9,11],[18,20]],["b",[18,20]],B,B])},
+{n:"Diego",s:mk([U,U,U,U,U,U,U])}];
+let P=INIT(),sel=null,cmpSet=new Set(),reqSet=new Set(),KEY="disp-rep-v1",persist=false;
+try{const x=localStorage.getItem(KEY);if(x)P=JSON.parse(x);localStorage.setItem("t","1");localStorage.removeItem("t");persist=true}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){persist=false}}
+const $=id=>document.getElementById(id);
+// ---- núcleo de cálculo ----
+function status(p,d,i,n){let b=0,u=0,c=0;const s=P[p].s[d];for(let k=i;k<i+n;k++){const v=s[k];if(v==="b")b++;else if(v==="u")u++;else if(v==="c")c++}return b?"b":u?"u":c?"c":"f"}
+function who(d,i,n){const o={f:[],c:[],u:[],b:[]};P.forEach((_,p)=>o[status(p,d,i,n)].push(p));return o}
+function ranges(p,d,st){const s=P[p].s[d],o=[];let a=-1;for(let i=0;i<=N;i++){const m=i<N&&s[i]===st;if(m&&a<0)a=i;if(!m&&a>=0){o.push(fmt(sT(a))+" – "+fmt(sT(i)));a=-1}}return o}
+const nm=p=>P[p].n,col=p=>COLORS[p%COLORS.length];
+const chip=(p,x)=>`<span class="chip" style="background:${col(p)}"><span class="dot" style="background:#fff8"></span>${nm(p)}${x?` <small>${x}</small>`:""}</span>`;
+const pct=n=>Math.round(100*n/P.length)+"%";
+function allWindows(day,n){const o=[];for(const d of day==="all"?[0,1,2,3,4,5,6]:[+day])for(let i=0;i+n<=N;i++){const w=who(d,i,n);o.push({d,i,n,w})}return o}
+function best(day,n,min,req){const l=allWindows(day,n).filter(x=>req.every(r=>x.w.f.includes(r))).map(x=>({...x,c:x.w.f.length}));
+l.sort((a,b)=>b.c-a.c||a.d-b.d||a.i-b.i);return l}
+// ---- UI ----
+function opts(el,arr,sel){el.innerHTML=arr.map(([v,t])=>`<option value="${v}">${t}</option>`).join("");if(sel!==undefined)el.value=sel}
+const DUR=[[1,"30 minutos"],[2,"1 hora"],[3,"1 hora y 30 minutos"],[4,"2 horas"]];
+const TIMES=[...Array(N).keys()].map(i=>[i,fmt(sT(i))]),ENDS=[...Array(N).keys()].map(i=>[i+1,fmt(sT(i+1))]);
+function init(){opts($("fDay"),DAYS.map((d,i)=>[i,d]),0);opts($("fTime"),TIMES,24);opts($("fDur"),DUR,2);
+opts($("rDay"),[["all","Toda la semana"],...DAYS.map((d,i)=>[i,d])],"all");opts($("rDur"),DUR,2);
+opts($("eD"),DAYS.map((d,i)=>[i,d]),0);opts($("eA"),TIMES,0);opts($("eB"),ENDS,N);
+["fDay","fTime","fDur"].forEach(i=>$(i).onchange=renderAll);$("fGo").onclick=renderAll;
+["rDay","rDur","rMin"].forEach(i=>$(i).onchange=()=>{cmpSet.clear();renderRec()});$("iP").onchange=renderInd;
+$("stor").innerHTML=persist?"💾 Los cambios se guardan <b>solo en este navegador</b> y no son permanentes ni compartidos. Para conservarlos o enviarlos, descarga el JSON.":"⚠️ Este entorno no permite almacenamiento: los cambios duran solo mientras la página esté abierta. Descarga el JSON para conservarlos.";
+$("eGo").onclick=()=>{const p=+$("eP").value,d=+$("eD").value,a=+$("eA").value,b=+$("eB").value,s=$("eS").value;if(b<=a)return msg("La hora final debe ser posterior a la inicial.");apply(p,d,a,b,s)};
+$("eAll").onclick=()=>apply(+$("eP").value,+$("eD").value,0,N,$("eS").value);
+$("nGo").onclick=()=>{const v=$("nN").value.trim();if(!v)return msg("Escribe un nombre.");if(P.some(x=>x.n.toLowerCase()===v.toLowerCase()))return msg("Ese nombre ya existe.");P.push({n:v,s:Array(7).fill("u".repeat(N))});$("nN").value="";save();people();renderAll();msg("Añadido: "+v)};
+$("rst").onclick=()=>{if(confirm("¿Restablecer los datos iniciales?")){P=INIT();cmpSet.clear();reqSet.clear();save();people();renderAll();msg("Datos iniciales restablecidos.")}};
+$("xJ").onclick=()=>dl("disponibilidad.json",JSON.stringify(P,null,1),"application/json");
+$("xC").onclick=()=>{let r=["Persona,Día,Inicio,Fin,Estado"];P.forEach((x,p)=>DAYS.forEach((d,di)=>{let a=0;const s=x.s[di];for(let i=1;i<=N;i++)if(i===N||s[i]!==s[a]){r.push([x.n,d,fmt(sT(a)),fmt(sT(i)),ST[s[a]]].join(","));a=i}}));dl("disponibilidad.csv",r.join("\n"),"text/csv")};
+$("iJ").onchange=e=>{const f=e.target.files[0];if(!f)return;const R=new FileReader();R.onload=()=>{try{const j=JSON.parse(R.result);if(!Array.isArray(j)||!j.every(x=>x.n&&Array.isArray(x.s)&&x.s.length===7&&x.s.every(z=>typeof z==="string"&&z.length===N)))throw 0;P=j;cmpSet.clear();reqSet.clear();save();people();renderAll();msg("Archivo cargado.")}catch(_){msg("El archivo JSON no tiene el formato esperado.")}};R.readAsText(f)};
+people();renderAll()}
+function msg(t){$("eMsg").textContent=t}
+function apply(p,d,a,b,s){const r=P[p].s[d].split("");for(let i=a;i<b;i++)r[i]=s;P[p].s[d]=r.join("");save();renderAll();msg(`${nm(p)} · ${DAYS[d]} · ${fmt(sT(a))} – ${fmt(sT(b))}: ${ST[s]}.`)}
+function dl(n,t,m){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:m}));a.download=n;a.click()}
+function people(){const keep=[$("iP").value,$("eP").value];const o=P.map((x,i)=>[i,x.n]);opts($("iP"),o,keep[0]<P.length&&keep[0]!==""?keep[0]:0);opts($("eP"),o,keep[1]<P.length&&keep[1]!==""?keep[1]:0);
+opts($("rMin"),P.map((_,i)=>[i+1,i+1]),$("rMin").value||1);
+$("rReq").innerHTML=P.map((x,i)=>`<label><input type="checkbox" data-r="${i}" ${reqSet.has(i)?"checked":""}><span class="dot" style="background:${col(i)}"></span>${x.n}</label>`).join("");
+$("rReq").querySelectorAll("input").forEach(c=>c.onchange=()=>{c.checked?reqSet.add(+c.dataset.r):reqSet.delete(+c.dataset.r);cmpSet.clear();renderRec()})}
+function renderAll(){renderCards();renderFind();renderRec();renderCal();renderInd()}
+function fq(){const d=+$("fDay").value,i=+$("fTime").value,n=+$("fDur").value;return{d,i,n,ok:i+n<=N}}
+function renderCards(){const q=fq(),w=q.ok?who(q.d,q.i,q.n):{f:[]};const b=best("all",q.n,1,[])[0];
+const c=(ic,bg,v,t)=>`<div class="card stat"><div class="ic" style="background:${bg}">${ic}</div><div><b>${v}</b><small>${t}</small></div></div>`;
+$("cards").innerHTML=c("👥","var(--lil)",P.length,"integrantes")+c("✅","var(--men)",w.f.length,`disponibles: ${DAYS[q.d]} ${fmt(sT(q.i))}`)+c("📊","var(--azu)",pct(w.f.length),"del grupo en ese momento")+
+c("⭐","var(--ama)",b&&b.c?`${DAYS[b.d].slice(0,3)} ${fmt(sT(b.i))}`:"—",b&&b.c?`mejor franja (${b.c} personas, ${DUR[q.n-1][1]})`:"sin coincidencias")}
+function renderFind(){const q=fq(),o=$("fOut");if(!q.ok){o.innerHTML=`<div class="empty">La reunión terminaría después de las 11:00 p. m. Elige una hora de inicio más temprana o una duración menor.</div>`;return}
+const w=who(q.d,q.i,q.n),e=fmt(sT(q.i+q.n));
+const grp=(t,cl,l,why)=>`<div class="card" style="box-shadow:none"><h3>${t} (${l.length})</h3>${l.length?l.map(p=>`<div>${chip(p,why&&why(p))}<button class="sec" style="padding:2px 8px;font-size:.75rem" onclick="showDay(${p},${q.d})">ver libre</button></div>`).join(""):'<div class="empty">Nadie en esta categoría.</div>'}</div>`;
+const rs=P.map((_,p)=>0);
+o.innerHTML=`<p class="muted">${DAYS[q.d]}, ${fmt(sT(q.i))} – ${e} · ${w.f.length} de ${P.length} confirmados (${pct(w.f.length)})${w.u.length?" · <b>Disponibilidad del grupo incompleta</b>: hay horarios desconocidos.":""}</p>
+<div class="grid2">${grp("✅ Disponibles","g-ok",w.f)}<div>${grp("🕓 Condicionales (avisar con anticipación)","g-co",w.c)}${grp("⛔ No disponibles","g-no",[...w.b,...w.u],p=>w.b.includes(p)?"ocupado":"sin horario registrado")}</div></div><div id="dayBox"></div>`}
+window.showDay=(p,d)=>{const r=ranges(p,d,"f"),c=ranges(p,d,"c");$("dayBox").innerHTML=`<div class="card" style="margin-top:12px;box-shadow:none"><h3>${nm(p)} · ${DAYS[d]}</h3>${r.length?r.map(x=>`<span class="chip g-ok">${x}</span>`).join(""):""}${c.length?c.map(x=>`<span class="chip g-co">${x} (condicional)</span>`).join(""):""}${!r.length&&!c.length?'<span class="muted">Sin franjas libres confirmadas ese día.</span>':""}</div>`}
+function renderRec(){const day=$("rDay").value,n=+$("rDur").value,min=+$("rMin").value||1,req=[...reqSet];const l=best(day,n,min,req);const o=$("rOut");$("cmp").innerHTML="";
+if(!l.length){o.innerHTML=`<div class="empty">Con los integrantes obligatorios seleccionados no hay ninguna franja de ${DUR[n-1][1]} en la que todos tengan disponibilidad confirmada. Quita algún obligatorio o reduce la duración.</div>`;return}
+const mx=l[0].c,ok=l.filter(x=>x.c>=min);let show=ok.slice(0,8),note="";
+if(!ok.length){show=l.slice(0,5);note=`<div class="warn">Ninguna franja alcanza ${min} personas. La mejor opción reúne a ${mx} (${pct(mx)}).</div>`}
+else if(mx===0){note=""}
+o.innerHTML=note+show.map((x,k)=>{const key=x.d+"-"+x.i;const top=x.c===mx;return`<div class="rec ${top?"best":""}"><div class="top"><b>${DAYS[x.d]} · ${fmt(sT(x.i))} – ${fmt(sT(x.i+n))}</b><span>${top?'<span class="tag">⭐ Mayor coincidencia</span> ':""}<label style="display:inline-flex;flex-direction:row;gap:4px;color:var(--tx)"><input type="checkbox" ${cmpSet.has(key)?"checked":""} onchange="tg('${key}',this.checked)">comparar</label></span></div>
+<div class="bar"><i style="width:${100*x.c/P.length}%"></i></div><div class="muted">${x.c} de ${P.length} (${pct(x.c)})${x.w.u.length?` · incompleto: ${x.w.u.length} sin horario conocido`:""}${x.w.c.length?` · +${x.w.c.length} condicional`:""}</div>
+<div>${x.w.f.map(p=>chip(p)).join("")||'<span class="muted">Nadie confirmado</span>'}</div></div>`}).join("");
+if(cmpSet.size)renderCmp()}
+window.tg=(k,c)=>{c?cmpSet.add(k):cmpSet.delete(k);if(cmpSet.size>3){cmpSet.delete(k);renderRec();return}renderCmp()};
+function renderCmp(){const n=+$("rDur").value,ks=[...cmpSet];if(ks.length<1){$("cmp").innerHTML="";return}
+$("cmp").innerHTML=`<h3>Comparación (máx. 3)</h3><div class="cal"><table class="cmp"><tr><th></th>${ks.map(k=>{const[d,i]=k.split("-").map(Number);return`<th>${DAYS[d]}<br>${fmt(sT(i))} – ${fmt(sT(i+n))}</th>`}).join("")}</tr>
+${P.map((x,p)=>`<tr><td>${chip(p)}</td>${ks.map(k=>{const[d,i]=k.split("-").map(Number);const s=status(p,d,i,n);return`<td class="${{f:"g-ok",b:"g-no",u:"g-un",c:"g-co"}[s]}">${{f:"✅ Libre",b:"⛔ Ocupado",u:"❔ Desconocido",c:"🕓 Condicional"}[s]}</td>`}).join("")}</tr>`).join("")}</table></div>`}
+function renderCal(){let h="<tr><th></th>"+DAYS.map(d=>`<th>${d.slice(0,3)}</th>`).join("")+"</tr>";
+for(let i=0;i<N;i++){h+=`<tr><td class="h">${i%2?"":fmt(sT(i))}</td>`;for(let d=0;d<7;d++){const w=who(d,i,1),c=w.f.length,r=c/P.length,lv=c===0?0:r<.2?1:r<.35?2:r<.5?3:r<.7?4:5;
+h+=`<td class="k l${lv} ${sel&&sel[0]===d&&sel[1]===i?"sel":""}" onclick="pick(${d},${i})" title="${DAYS[d]} ${fmt(sT(i))}: ${c} disponibles">${c}${w.u.length?'<span class="d"></span>':""}</td>`}h+="</tr>"}
+$("cal").innerHTML=h;if(sel)detail()}
+window.pick=(d,i)=>{sel=[d,i];renderCal()};
+function detail(){const[d,i]=sel,w=who(d,i,1);$("cOut").innerHTML=`<div class="card" style="box-shadow:none"><b>${DAYS[d]} · ${fmt(sT(i))} – ${fmt(sT(i+1))}</b> · ${w.f.length} de ${P.length} (${pct(w.f.length)})
+<h3>Disponibles</h3>${w.f.map(p=>chip(p)).join("")||'<span class="muted">Nadie</span>'}<h3>Condicionales</h3>${w.c.map(p=>chip(p)).join("")||'<span class="muted">Nadie</span>'}
+<h3>Ocupados</h3>${w.b.map(p=>chip(p)).join("")||'<span class="muted">Nadie</span>'}<h3>Desconocidos${w.u.length?" (grupo incompleto)":""}</h3>${w.u.map(p=>chip(p)).join("")||'<span class="muted">Nadie</span>'}</div>`}
+function renderInd(){const p=+$("iP").value||0;if(!P[p])return;let h='<div class="week">';
+DAYS.forEach((d,di)=>{const s=P[p].s[di],unkAll=!s.includes("f")&&!s.includes("b")&&!s.includes("c");
+const blk=(st,cl)=>{const r=ranges(p,di,st);return r.length?r.map(x=>`<span class="chip ${cl}">${x}</span>`).join(""):""};
+h+=`<div class="day"><b>${d}</b>${unkAll?'<span class="chip g-un">❔ Horario aún no conocido</span>':(blk("f","g-ok")+blk("c","g-co")+(s.includes("b")&&!s.includes("f")&&!s.includes("c")&&!s.includes("u")?'<span class="chip g-no">⛔ No disponible todo el día</span>':"")+(ranges(p,di,"b").length&&(s.includes("f")||s.includes("c"))?`<div class="muted">Resto ocupado: ${ranges(p,di,"b").join(" · ")}</div>`:"")+(ranges(p,di,"u").length?`<div class="muted">Desconocido: ${ranges(p,di,"u").join(" · ")}</div>`:""))}</div>`});
+$("iOut").innerHTML=`<p class="muted">${chip(p)} Verde: libre confirmado · Amarillo: condicional · Azul: desconocido · Rosa: ocupado.</p>`+h+"</div>"}
+init();
+</script></body></html>
